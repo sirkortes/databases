@@ -3,13 +3,20 @@ var models = require('../models');
 module.exports = {
   messages: {
     get: function (req, res) {
-    	console.log("\n\nGETTING message");
+
+        models.messages.get(req, res, function(messages){
+          
+          res.end(JSON.stringify(messages));
+        });
+
+        
+
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-    	
-    	console.log("\n\nPOSTING MSG\n",req.body);
+      
+      // console.log("\n\nPOSTING MSG\n",req.body);
 
-    	models.messages.post(req.body)
+      models.messages.post(req, res);
 
     } // a function which handles posting a message to the database
   },
@@ -18,17 +25,12 @@ module.exports = {
     // Ditto as above
     get: function (req, res) {
 
-    	console.log("GETTING user");
+      console.log("GETTING user");
     },
     
     post: function (req, res) {
 
-    	console.log("\n\nPOSTING user\n", req.body);
-    	models.users.post(req.body);
-    	// this gets called first,
-    	// and stores user on the db
-
-    	// then message gets called
+      models.users.post(req, res);
 
     }
   }
